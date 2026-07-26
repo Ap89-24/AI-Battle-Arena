@@ -8,8 +8,10 @@ import {
   END,
 } from "@langchain/langgraph";
 import { z } from "zod";
-import { mistralModel, cohereModel } from "./model.services.js";
+import { mistralModel, cohereModel , geminiModel } from "./model.services.js";
 import { HumanMessage } from "@langchain/core/messages";
+import { createAgent , providerStrategy } from "langchain";
+
 
 type JUDGEMENT = {
   winner: "solution_1" | "solution_2";
@@ -37,9 +39,9 @@ const State = new StateSchema({
     },
   }),
   judgement: new ReducedValue(
-    z.object().default({
-      solution_1_score: 0,
-      solution_2_score: 0,
+    z.object({
+    solution_1_score: z.number().default(0),
+    solution_2_score: z.number().default(0),
     }),
     {
       reducer: (current, next) => {
@@ -65,10 +67,38 @@ const solutionNode: GraphNode<typeof State> = async (state: typeof State) => {
   };
 };
 
+const judgeNode: GraphNode<typeof State> = async (state: typeof State) => { 
+  const { solution_1, solution_2 } = state;
+  const judge = createAgent({
+    model: geminiModel,
+    tools: [],
+    responseFormat: providerStrategy(z.object({
+      solution_1_score: z.number().min(0).max(10),
+      solution_2_score: z.number().min(0).max(10),
+    }))
+  })
+
+  const judgeResponse = await judge.invoke({
+    messages: [
+      new HumanMessage(`
+        You are a judge tasked with evaluating the quality of two solutions to a problem. The problem is: ${state.message[0].text}. The first solution is: ${solution_1}. The second solution is: ${solution_2}. Please provide a score between 0 and 10 for each solution, where 0 means the solution is completely incorrect or irrelevant , and 10 means the solution is perfect and fullt addressed the problem.
+        `)
+    ]
+  })
+
+  const result = judgeResponse.structuredResponse
+
+  return {
+    judgement: result
+  }
+};
+
 const graph = new StateGraph(State)
   .addNode("solution", solutionNode)
+  .addNode("judge", judgeNode)
   .addEdge(START, "solution")
-  .addEdge("solution", END)
+  .addEdge("solution" , "judge")
+  .addEdge("judge", END)
   .compile();
 
 export default async function userMessage(userMessage: string) {

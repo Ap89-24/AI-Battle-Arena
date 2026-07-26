@@ -10,7 +10,7 @@ app.get("/health", (req, res) => {
 });
 
 app.post("/ai-chat", async (req, res) => {
-  await userMessage("what is the capital of india???");
+  await userMessage("give me the factorial in javascript???");
 });
 
 export default app;
