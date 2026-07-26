@@ -50,9 +50,13 @@ const State = new StateSchema({
 });
 
 const solutionNode: GraphNode<typeof State> = async (state: typeof State) => {
-  const [mistral_solution, cohere_solution] = Promise.all([
-    mistralModel.invoke(state.messages[0].text),
-    cohereModel.invoke(state.messages[0].text),
+  const userMessage = state.message[0];
+  if (!userMessage) {
+  throw new Error("No message found in graph state.");
+}
+  const [mistral_solution, cohere_solution] = await Promise.all([
+    mistralModel.invoke(userMessage.text),
+    cohereModel.invoke(userMessage.text),
   ]);
 
   return {
@@ -73,5 +77,5 @@ export default async function userMessage(userMessage: string) {
   });
 
   console.log(result);
-  return result.messages;
+  return result.message;
 }
