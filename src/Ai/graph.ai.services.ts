@@ -64,7 +64,7 @@ const judgeNode: GraphNode<typeof State> = async (state) => {
     systemPrompt: `You are a judge tasked with evaluating two solutions generate by different ai models. Please provide a score oout of 10 for each solution , along with your reasoning for each solution`,
   });
 
-  const judgeResponse = judge.invoke({
+  const judgeResponse = await judge.invoke({
     messages: [
       new HumanMessage(`
         Problem: ${problem},
@@ -80,7 +80,7 @@ const judgeNode: GraphNode<typeof State> = async (state) => {
     solution_2_score,
     solution_1_reasoning,
     solution_2_reasoning,
-  } = (await judgeResponse).structuredResponse;
+  } = judgeResponse.structuredResponse;
 
   return {
     judge: {
@@ -100,11 +100,11 @@ const graph = new StateGraph(State)
   .addEdge("judge", END)
   .compile();
 
-export default async function userMessage(userMessage: string) {
+export default async function runGraph(userMessage: string) {
   const result = await graph.invoke({
-    message: [new HumanMessage(userMessage)],
+    problem: userMessage
   });
 
   console.log(result);
-  return result.message;
+  return result;
 }

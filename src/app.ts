@@ -1,5 +1,5 @@
 import express from "express";
-import userMessage from "./Ai/graph.ai.services.js";
+import runGraph from "./Ai/graph.ai.services.js";
 
 const app = express();
 
@@ -10,7 +10,7 @@ app.get("/health", (req, res) => {
 });
 
 app.post("/ai-chat", async (req, res) => {
-  await userMessage("give me the factorial in javascript???");
+  await runGraph("give me the factorial in javascript???");
 });
 
 export default app;
