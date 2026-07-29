@@ -12,18 +12,6 @@ import { mistralModel, cohereModel, geminiModel } from "./model.ai.js";
 import { HumanMessage } from "@langchain/core/messages";
 import { createAgent, providerStrategy } from "langchain";
 
-type JUDGEMENT = {
-  winner: "solution_1" | "solution_2";
-  solution_1_score: number;
-  solution_2_score: number;
-};
-
-// type AIBATTLESTATE = {
-//   message: typeof MessagesValue;
-//   solution_1: string;
-//   solution_2: string;
-//   judgement: JUDGEMENT;
-// };
 
 const State = new StateSchema({
   problem: z.string().default(""),
@@ -94,10 +82,10 @@ const judgeNode: GraphNode<typeof State> = async (state) => {
 
 const graph = new StateGraph(State)
   .addNode("solution", solutionNode)
-  .addNode("judge", judgeNode)
+  .addNode("judgeNode", judgeNode)
   .addEdge(START, "solution")
-  .addEdge("solution", "judge")
-  .addEdge("judge", END)
+  .addEdge("solution", "judgeNode")
+  .addEdge("judgeNode", END)
   .compile();
 
 export default async function runGraph(userMessage: string) {

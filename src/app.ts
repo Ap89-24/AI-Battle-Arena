@@ -10,7 +10,8 @@ app.get("/health", (req, res) => {
 });
 
 app.post("/ai-chat", async (req, res) => {
-  await runGraph("give me the factorial in javascript???");
+  const result = await runGraph("give me the factorial in javascript???");
+  res.status(200).json(result);
 });
 
 export default app;
