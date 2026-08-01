@@ -49,28 +49,7 @@ export default function HeroSection({ onBattle }) {
       zIndex: 2,
     }}>
       {/* Badge */}
-      <div className={`fade-slide-up ${mounted ? 'visible' : ''}`} style={{ animationDelay: '0.1s', marginBottom: '2rem' }}>
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '6px 14px',
-          borderRadius: '20px',
-          background: 'rgba(99, 102, 241, 0.1)',
-          border: '1px solid rgba(99, 102, 241, 0.25)',
-        }}>
-          <span style={{ fontSize: '12px' }}>✨</span>
-          <span style={{
-            fontFamily: 'JetBrains Mono, monospace',
-            fontSize: '11px',
-            fontWeight: 500,
-            color: '#c0c1ff',
-            letterSpacing: '0.08em',
-          }}>
-            POWERED BY AI JUDGE
-          </span>
-        </div>
-      </div>
+     
 
       {/* Heading */}
       <div className={`fade-slide-up ${mounted ? 'visible' : ''}`} style={{ animationDelay: '0.2s', textAlign: 'center', marginBottom: '1.5rem' }}>
