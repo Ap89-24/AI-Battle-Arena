@@ -10,7 +10,6 @@ import { mistralModel, cohereModel, geminiModel } from "./model.ai.js";
 import { HumanMessage } from "@langchain/core/messages";
 import { createAgent, providerStrategy } from "langchain";
 
-
 const State = new StateSchema({
   problem: z.string().default(""),
   solution_1: z.string().default(""),
@@ -88,7 +87,7 @@ const graph = new StateGraph(State)
 
 export default async function runGraph(userMessage: string) {
   const result = await graph.invoke({
-    problem: userMessage
+    problem: userMessage,
   });
 
   console.log(result);
