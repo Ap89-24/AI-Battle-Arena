@@ -20,7 +20,7 @@ export interface ITurn {
 }
 
 export interface IChat extends Document {
-  userId: Types.ObjectId;
+  userId: string;
 
   title: string;
 

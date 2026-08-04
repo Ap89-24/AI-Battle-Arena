@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IChat } from "../interfaces/chat.interface.js";
+import type { IChat } from "../interfaces/chat.interface.js";
 
 const ResponseSchema = new Schema(
   {
@@ -60,8 +60,7 @@ const TurnSchema = new Schema(
 const ChatSchema = new Schema<IChat>(
   {
     userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
       index: true,
     },

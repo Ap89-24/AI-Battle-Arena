@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import runGraph from "./Ai/graph.ai.services.js";
 import morgan from "morgan";
+import chatRouter from "./routes/chat.route.js";
+
+
 
 const app = express();
 app.use(express.json());
@@ -13,14 +16,6 @@ app.use(cors({
 
 app.use(morgan("dev"));
 
-app.post("/invoke", async (req, res) => {
-  const { prompt } = req.body;
-  const result = await runGraph(prompt);
-  res.status(200).json({
-    message: "Graph AI invoked successfully",
-    success: true,
-    data: result
-  });
-});
+app.use("/api", chatRouter);
 
 export default app;
