@@ -5,6 +5,7 @@ import HeroSection from "../components/HeroSection";
 import LoadingScreen from "../components/LoadingScreen";
 import BattleScreen from "../components/BattleScreen";
 import Sidebar from "../components/Sidebar";
+import { useUser, SignInButton } from "@clerk/clerk-react";
 
 // ====================================================
 // DYNAMIC MOCK DATA GENERATOR
@@ -71,10 +72,15 @@ export default function App() {
   const [history, setHistory] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const { isSignedIn } = useUser();
+
   const handleBattle = useCallback((userPrompt) => {
+      if (!isSignedIn) {
+        return;
+      }
     setPrompt(userPrompt);
     setView("loading");
-  }, []);
+  }, [isSignedIn]);
 
   const handleLoadingComplete = useCallback(() => {
     const firstTurn = generateMockTurn(prompt || "Factorial in JavaScript");
