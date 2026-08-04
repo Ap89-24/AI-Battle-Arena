@@ -24,9 +24,15 @@
     "@langchain/google": "^0.2.1",
     "@langchain/langgraph": "^1.4.8",
     "@langchain/mistralai": "^1.2.0",
+    "@types/cors": "^2.8.19",
+    "@types/mongoose": "^5.11.96",
+    "@types/morgan": "^1.9.10",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "langchain": "^1.5.4",
+    "mongoose": "^9.9.1",
+    "morgan": "^1.11.0",
     "zod": "^4.4.3"
   }
 }
