@@ -138,14 +138,25 @@ function CountUp({ target, startDelay, color }) {
 }
 
 export default function VerdictSpotlight({ data, onDismiss }) {
-  const { judge } = data;
-  const isGeminiWinner = judge.solution_1_score >= judge.solution_2_score;
-  const winnerName = isGeminiWinner ? 'Gemini' : 'GPT';
-  const loserName = isGeminiWinner ? 'GPT' : 'Gemini';
-  const winnerScore = isGeminiWinner ? judge.solution_1_score : judge.solution_2_score;
-  const loserScore = isGeminiWinner ? judge.solution_2_score : judge.solution_1_score;
-  const winnerColor = isGeminiWinner ? '#2dd4bf' : '#6366f1';
-  const loserColor = isGeminiWinner ? '#6366f1' : '#2dd4bf';
+ const { judge, winner } = data;
+
+ const isSolution1Winner = winner === "Mistral";
+
+ const winnerName = winner;
+
+ const loserName = winner === "Mistral" ? "Cohere" : "Mistral";
+
+ const winnerScore = isSolution1Winner
+   ? judge.solution_1_score
+   : judge.solution_2_score;
+
+ const loserScore = isSolution1Winner
+   ? judge.solution_2_score
+   : judge.solution_1_score;
+
+ const winnerColor = isSolution1Winner ? "#2dd4bf" : "#6366f1";
+
+ const loserColor = isSolution1Winner ? "#6366f1" : "#2dd4bf";
 
   const [phase, setPhase] = useState(0);
   // phase 0=curtain, 1=spotlight, 2=label, 3=trophy, 4=name, 5=scores, 6=confetti, 7=prompt

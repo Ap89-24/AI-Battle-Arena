@@ -1,11 +1,42 @@
 import { useEffect, useState } from 'react';
 
 const STEPS = [
-  { id: 1, label: 'Preparing Arena', icon: '⚡', color: '#2dd4bf' },
-  { id: 2, label: 'Calling Models', icon: '🤖', color: '#6366f1' },
-  { id: 3, label: 'Generating Responses', icon: '💬', color: '#a855f7' },
-  { id: 4, label: 'Judge Thinking', icon: '🧠', color: '#f59e0b' },
-  { id: 5, label: 'Winner Announced', icon: '🏆', color: '#4ade80' },
+  {
+    id: 1,
+    label: "Authenticating User",
+    icon: "🔐",
+    color: "#2dd4bf",
+  },
+  {
+    id: 2,
+    label: "Querying Mistral",
+    icon: "🤖",
+    color: "#6366f1",
+  },
+  {
+    id: 3,
+    label: "Querying Cohere",
+    icon: "💡",
+    color: "#a855f7",
+  },
+  {
+    id: 4,
+    label: "AI Judge Evaluating",
+    icon: "🧠",
+    color: "#f59e0b",
+  },
+  {
+    id: 5,
+    label: "Saving Battle",
+    icon: "💾",
+    color: "#22c55e",
+  },
+  {
+    id: 6,
+    label: "Preparing Results",
+    icon: "🏆",
+    color: "#4ade80",
+  },
 ];
 
 export default function LoadingScreen({ onComplete }) {

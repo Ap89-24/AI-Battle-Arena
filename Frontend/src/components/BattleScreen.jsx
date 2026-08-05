@@ -7,97 +7,168 @@ import VerdictSpotlight from './VerdictSpotlight';
 // SingleTurnBlock — Renders a single prompt turn's solution cards & judge
 // ============================================================
 function SingleTurnBlock({ turn, index }) {
-  const isGeminiWinner = turn.judge.solution_1_score >= turn.judge.solution_2_score;
+const isModel1Winner = turn.winner === "Mistral";
 
   return (
-    <div style={{
-      marginBottom: '4rem',
-      borderBottom: '1px dashed rgba(255, 255, 255, 0.05)',
-      paddingBottom: '3rem',
-      animation: 'fadeIn 0.6s ease both',
-    }}>
+    <div
+      style={{
+        marginBottom: "4rem",
+        borderBottom: "1px dashed rgba(255, 255, 255, 0.05)",
+        paddingBottom: "3rem",
+        animation: "fadeIn 0.6s ease both",
+      }}
+    >
       {/* Turn Header / Question Tag */}
-      <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '10px',
-          padding: '10px 20px',
-          borderRadius: '16px',
-          background: 'rgba(15, 19, 33, 0.85)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          boxShadow: '0 4px 30px rgba(0,0,0,0.3)',
-          maxWidth: '700px',
-        }}>
-          <div style={{
-            width: '8px', height: '8px', borderRadius: '50%',
-            background: '#a855f7', flexShrink: 0,
-            boxShadow: '0 0 8px rgba(168,85,247,0.8)',
-          }} />
-          <span style={{
-            fontFamily: 'Space Grotesk, sans-serif',
-            fontWeight: 500, fontSize: '0.9rem', color: '#bacac5',
-          }}>
+      <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "10px",
+            padding: "10px 20px",
+            borderRadius: "16px",
+            background: "rgba(15, 19, 33, 0.85)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: "0 4px 30px rgba(0,0,0,0.3)",
+            maxWidth: "700px",
+          }}
+        >
+          <div
+            style={{
+              width: "8px",
+              height: "8px",
+              borderRadius: "50%",
+              background: "#a855f7",
+              flexShrink: 0,
+              boxShadow: "0 0 8px rgba(168,85,247,0.8)",
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "Space Grotesk, sans-serif",
+              fontWeight: 500,
+              fontSize: "0.9rem",
+              color: "#bacac5",
+            }}
+          >
             Round {index + 1}: {turn.problem}
           </span>
         </div>
       </div>
 
       {/* VS Section */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '20px',
-        marginBottom: '2rem',
-        flexWrap: 'wrap',
-      }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "20px",
+          marginBottom: "2rem",
+          flexWrap: "wrap",
+        }}
+      >
         {/* Model A */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '10px',
-          padding: '10px 20px', borderRadius: '14px',
-          background: 'rgba(45,212,191,0.08)',
-          border: '1px solid rgba(45,212,191,0.2)',
-        }}>
-          <span style={{ fontSize: '20px' }}>🤖</span>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            padding: "10px 20px",
+            borderRadius: "14px",
+            background: "rgba(45,212,191,0.08)",
+            border: "1px solid rgba(45,212,191,0.2)",
+          }}
+        >
+          <span style={{ fontSize: "20px" }}>🤖</span>
           <div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#859490', letterSpacing: '0.08em' }}>MODEL A</div>
-            <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#2dd4bf' }}>Gemini</div>
+            <div
+              style={{
+                fontFamily: "JetBrains Mono, monospace",
+                fontSize: "9px",
+                color: "#859490",
+                letterSpacing: "0.08em",
+              }}
+            >
+              MODEL A
+            </div>
+            <div
+              style={{
+                fontFamily: "Space Grotesk, sans-serif",
+                fontWeight: 700,
+                fontSize: "1rem",
+                color: "#2dd4bf",
+              }}
+            >
+              {"Mistral"}
+            </div>
           </div>
         </div>
 
         {/* VS Badge */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '6px',
-          padding: '10px 16px', borderRadius: '14px',
-          background: 'linear-gradient(135deg, rgba(99,102,241,0.15), rgba(168,85,247,0.15))',
-          border: '1px solid rgba(99,102,241,0.4)',
-        }}>
-          <span style={{
-            fontFamily: 'Space Grotesk, sans-serif',
-            fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em',
-            background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-          }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+            padding: "10px 16px",
+            borderRadius: "14px",
+            background:
+              "linear-gradient(135deg, rgba(99,102,241,0.15), rgba(168,85,247,0.15))",
+            border: "1px solid rgba(99,102,241,0.4)",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "Space Grotesk, sans-serif",
+              fontWeight: 800,
+              fontSize: "1.1rem",
+              letterSpacing: "-0.02em",
+              background: "linear-gradient(135deg, #6366f1, #a855f7)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
             VS
           </span>
         </div>
 
         {/* Model B */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '10px',
-          padding: '10px 20px', borderRadius: '14px',
-          background: 'rgba(99,102,241,0.08)',
-          border: '1px solid rgba(99,102,241,0.2)',
-        }}>
-          <span style={{ fontSize: '20px' }}>🤖</span>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            padding: "10px 20px",
+            borderRadius: "14px",
+            background: "rgba(99,102,241,0.08)",
+            border: "1px solid rgba(99,102,241,0.2)",
+          }}
+        >
+          <span style={{ fontSize: "20px" }}>🤖</span>
           <div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#859490', letterSpacing: '0.08em' }}>MODEL B</div>
-            <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1rem', color: '#6366f1' }}>GPT</div>
+            <div
+              style={{
+                fontFamily: "JetBrains Mono, monospace",
+                fontSize: "9px",
+                color: "#859490",
+                letterSpacing: "0.08em",
+              }}
+            >
+              MODEL B
+            </div>
+            <div
+              style={{
+                fontFamily: "Space Grotesk, sans-serif",
+                fontWeight: 700,
+                fontSize: "1rem",
+                color: "#6366f1",
+              }}
+            >
+              {"Cohere"}
+            </div>
           </div>
         </div>
       </div>
@@ -106,19 +177,20 @@ function SingleTurnBlock({ turn, index }) {
       <div
         className="battle-cards-wrapper"
         style={{
-          display: 'flex',
-          gap: '1.5rem',
-          marginBottom: '1.5rem',
-          alignItems: 'stretch',
+          display: "flex",
+          gap: "1.5rem",
+          marginBottom: "1.5rem",
+          alignItems: "stretch",
         }}
       >
         <div className="battle-card-slot" style={{ flex: 1, minWidth: 0 }}>
           <SolutionCard
-            model="Gemini"
+            model="Mistral"
             solution={turn.solution_1}
             score={turn.judge.solution_1_score}
+            reasoning={turn.judge.solution_1_reasoning}
             color="#2dd4bf"
-            isWinner={isGeminiWinner}
+            isWinner={turn.winner === "Mistral"}
             side="left"
           />
         </div>
@@ -127,40 +199,52 @@ function SingleTurnBlock({ turn, index }) {
         <div
           className="energy-divider"
           style={{
-            width: '2px',
-            alignSelf: 'stretch',
-            minHeight: '100px',
-            position: 'relative',
+            width: "2px",
+            alignSelf: "stretch",
+            minHeight: "100px",
+            position: "relative",
             flexShrink: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <div style={{
-            position: 'absolute', top: 0, bottom: 0, width: '1px',
-            background: 'linear-gradient(180deg, transparent, rgba(99,102,241,0.4) 20%, rgba(168,85,247,0.6) 50%, rgba(99,102,241,0.4) 80%, transparent)',
-          }} />
-          <div style={{
-            width: '24px', height: '24px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-            zIndex: 1,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '11px',
-            boxShadow: '0 0 20px rgba(99,102,241,0.6)',
-          }}>
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              width: "1px",
+              background:
+                "linear-gradient(180deg, transparent, rgba(99,102,241,0.4) 20%, rgba(168,85,247,0.6) 50%, rgba(99,102,241,0.4) 80%, transparent)",
+            }}
+          />
+          <div
+            style={{
+              width: "24px",
+              height: "24px",
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, #6366f1, #a855f7)",
+              zIndex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "11px",
+              boxShadow: "0 0 20px rgba(99,102,241,0.6)",
+            }}
+          >
             ⚡
           </div>
         </div>
 
         <div className="battle-card-slot" style={{ flex: 1, minWidth: 0 }}>
           <SolutionCard
-            model="GPT"
+            model="Cohere"
             solution={turn.solution_2}
             score={turn.judge.solution_2_score}
+            reasoning={turn.judge.solution_2_reasoning}
             color="#6366f1"
-            isWinner={!isGeminiWinner}
+            isWinner={turn.winner === "Cohere"}
             side="right"
           />
         </div>

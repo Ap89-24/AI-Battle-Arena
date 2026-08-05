@@ -247,9 +247,19 @@ function MarkdownRenderer({ content }) {
   );
 }
 
-export default function SolutionCard({ model, solution, score, color, isWinner, side }) {
-  const glowColor = color === '#2dd4bf' ? 'rgba(45,212,191,0.2)' : 'rgba(99,102,241,0.2)';
-  const bgColor = color === '#2dd4bf' ? 'rgba(45,212,191,0.04)' : 'rgba(99,102,241,0.04)';
+export default function SolutionCard({
+  model,
+  solution,
+  score,
+  reasoning,
+  color,
+  isWinner,
+  side,
+}) {
+  const glowColor =
+    color === "#2dd4bf" ? "rgba(45,212,191,0.2)" : "rgba(99,102,241,0.2)";
+  const bgColor =
+    color === "#2dd4bf" ? "rgba(45,212,191,0.04)" : "rgba(99,102,241,0.04)";
 
   return (
     <div
@@ -257,75 +267,94 @@ export default function SolutionCard({ model, solution, score, color, isWinner, 
       style={{
         flex: 1,
         minWidth: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        borderRadius: '24px',
-        background: 'rgba(15, 19, 33, 0.85)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        border: `1px solid ${isWinner ? `${color}40` : 'rgba(255,255,255,0.08)'}`,
-        borderTopColor: isWinner ? `${color}60` : 'rgba(255,255,255,0.12)',
+        display: "flex",
+        flexDirection: "column",
+        borderRadius: "24px",
+        background: "rgba(15, 19, 33, 0.85)",
+        backdropFilter: "blur(24px)",
+        WebkitBackdropFilter: "blur(24px)",
+        border: `1px solid ${isWinner ? `${color}40` : "rgba(255,255,255,0.08)"}`,
+        borderTopColor: isWinner ? `${color}60` : "rgba(255,255,255,0.12)",
         boxShadow: isWinner
           ? `0 0 40px ${glowColor}, 0 20px 60px rgba(0,0,0,0.4)`
-          : '0 20px 60px rgba(0,0,0,0.3)',
-        overflow: 'hidden',
-        position: 'relative',
-        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-        animation: `slideIn${side === 'left' ? 'Left' : 'Right'} 0.7s ease both`,
+          : "0 20px 60px rgba(0,0,0,0.3)",
+        overflow: "hidden",
+        position: "relative",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        animation: `slideIn${side === "left" ? "Left" : "Right"} 0.7s ease both`,
       }}
     >
       {/* Winner ribbon */}
       {isWinner && (
-        <div style={{
-          position: 'absolute',
-          top: '18px', right: '-28px',
-          background: `linear-gradient(135deg, ${color}, ${color}cc)`,
-          color: '#050816',
-          fontFamily: 'JetBrains Mono, monospace',
-          fontSize: '9px',
-          fontWeight: 600,
-          padding: '4px 36px',
-          letterSpacing: '0.1em',
-          transform: 'rotate(45deg)',
-          zIndex: 5,
-          boxShadow: `0 4px 15px ${glowColor}`,
-        }}>
+        <div
+          style={{
+            position: "absolute",
+            top: "18px",
+            right: "-28px",
+            background: `linear-gradient(135deg, ${color}, ${color}cc)`,
+            color: "#050816",
+            fontFamily: "JetBrains Mono, monospace",
+            fontSize: "9px",
+            fontWeight: 600,
+            padding: "4px 36px",
+            letterSpacing: "0.1em",
+            transform: "rotate(45deg)",
+            zIndex: 5,
+            boxShadow: `0 4px 15px ${glowColor}`,
+          }}
+        >
           WINNER
         </div>
       )}
 
       {/* Card Header */}
-      <div style={{
-        padding: '20px 22px',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '12px',
-        background: bgColor,
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{
-            width: '36px', height: '36px',
-            borderRadius: '10px',
-            background: glowColor,
-            border: `1px solid ${color}30`,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '18px',
-          }}>
+      <div
+        style={{
+          padding: "20px 22px",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "12px",
+          background: bgColor,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div
+            style={{
+              width: "36px",
+              height: "36px",
+              borderRadius: "10px",
+              background: glowColor,
+              border: `1px solid ${color}30`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "18px",
+            }}
+          >
             🤖
           </div>
           <div>
-            <div style={{
-              fontFamily: 'Space Grotesk, sans-serif',
-              fontWeight: 600, fontSize: '0.9rem', color: '#dfe1f6',
-            }}>
-              Solution {side === 'left' ? '1' : '2'}
+            <div
+              style={{
+                fontFamily: "Space Grotesk, sans-serif",
+                fontWeight: 600,
+                fontSize: "0.9rem",
+                color: "#dfe1f6",
+              }}
+            >
+              Solution {side === "left" ? "1" : "2"}
             </div>
-            <div style={{
-              fontFamily: 'JetBrains Mono, monospace',
-              fontSize: '10px', color, letterSpacing: '0.05em', marginTop: '2px',
-            }}>
+            <div
+              style={{
+                fontFamily: "JetBrains Mono, monospace",
+                fontSize: "10px",
+                color,
+                letterSpacing: "0.05em",
+                marginTop: "2px",
+              }}
+            >
               {model}
             </div>
           </div>
@@ -334,13 +363,47 @@ export default function SolutionCard({ model, solution, score, color, isWinner, 
       </div>
 
       {/* Content */}
-      <div style={{
-        flex: 1,
-        overflow: 'auto',
-        padding: '20px 22px',
-        maxHeight: '500px',
-      }}>
+      <div
+        style={{
+          flex: 1,
+          overflow: "auto",
+          padding: "20px 22px",
+          maxHeight: "500px",
+        }}
+      >
         <MarkdownRenderer content={solution} />
+
+        {/* Judge Feedback */}
+        <div
+          style={{
+            marginTop: "24px",
+            paddingTop: "20px",
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+          }}
+        >
+          <h3
+            style={{
+              color,
+              fontFamily: "Space Grotesk, sans-serif",
+              fontWeight: 600,
+              fontSize: "0.9rem",
+              marginBottom: "12px",
+            }}
+          >
+            Judge's Feedback
+          </h3>
+
+          <p
+            style={{
+              color: "#bacac5",
+              fontSize: "0.85rem",
+              lineHeight: 1.7,
+              margin: 0,
+            }}
+          >
+            {reasoning}
+          </p>
+        </div>
       </div>
     </div>
   );

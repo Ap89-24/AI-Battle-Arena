@@ -1,6 +1,6 @@
 import { useAuth } from "@clerk/clerk-react";
 import { useEffect } from "react";
-import { api } from "../services/api";
+import { api } from "../services/chat.api";
 
 export default function ApiProvider({ children }) {
   const { getToken } = useAuth();
