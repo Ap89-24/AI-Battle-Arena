@@ -14,14 +14,14 @@ export const createChat = async (req: Request, res: Response) => {
       });
     }
 
-    // const { userId } = getAuth(req);
+    const { userId } = getAuth(req);
 
-    // if (!userId) {
-    //   return res.status(401).json({
-    //     success: false,
-    //     message: "Unauthorized",
-    //   });
-    // }
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
 
     const result = await runGraph(prompt);
 
@@ -31,7 +31,7 @@ export const createChat = async (req: Request, res: Response) => {
         : "Cohere";
 
     const chat = await Chat.create({
-      userId: "user_test_123",
+      userId,
 
       title: prompt,
 
